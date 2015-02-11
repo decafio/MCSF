@@ -1,0 +1,6 @@
+﻿- Drop all tables (DropTables.sql) 
+- Open Package Manager Console
+--- Enable-Migrations -ContextTypeName MCSF.DAL.CalculationContext
+--- Add-Migration Calc-1
+--- Update-Database -Verbose
+- Run Seeding SQL --SeedCalculationTables.sql

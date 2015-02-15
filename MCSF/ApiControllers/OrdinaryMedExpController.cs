@@ -17,17 +17,17 @@ namespace MCSF.ApiControllers
         [HttpGet]
         public async Task<IHttpActionResult> Monthly(int childCount)
         {
-            OrdinaryMedExpRepo repo = new OrdinaryMedExpRepo();
-            OrdinaryMedExp expAvg = await repo.GetOrdinaryMedExp(childCount);
-            return Ok(expAvg.MonthlyAmount);
+            decimal medExp = await OrdinaryMedExpRepo.Monthly(childCount);
+
+            return Ok(medExp);
         }
 
         [HttpGet]
         public async Task<IHttpActionResult> Annual(int childCount)
         {
-            OrdinaryMedExpRepo repo = new OrdinaryMedExpRepo();
-            OrdinaryMedExp expAvg = await repo.GetOrdinaryMedExp(childCount);
-            return Ok(expAvg.AnnualAmount);
+            decimal medExp = await OrdinaryMedExpRepo.Annual(childCount);
+
+            return Ok(medExp);
         }
     }
 }

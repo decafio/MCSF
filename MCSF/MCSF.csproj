@@ -119,9 +119,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Areas\MainPage\Models\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiCalculations\LowIncomeCalcs.cs" />
+    <Compile Include="ApiCalculations\ObligationCalcs.cs" />
+    <Compile Include="ApiCalculations\OrdinaryMedExpCalcs.cs" />
     <Compile Include="ApiControllers\AdditionalChildrenController.cs" />
     <Compile Include="ApiControllers\HealthController.cs" />
     <Compile Include="ApiControllers\ObligationController.cs" />
@@ -130,6 +134,7 @@
     <Compile Include="ApiControllers\LowIncomeController.cs" />
     <Compile Include="ApiModels\AdditionalChildren.cs" />
     <Compile Include="ApiModels\GeneralCareSupport.cs" />
+    <Compile Include="ApiModels\BaseSupport.cs" />
     <Compile Include="ApiModels\IncomeBracket.cs" />
     <Compile Include="ApiModels\LowIncomeThreshold.cs" />
     <Compile Include="ApiModels\OrdinaryMedExp.cs" />
@@ -166,20 +171,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Areas\MainPage\MainPageAreaRegistration.cs" />
+    <Compile Include="Areas\MainPage\Controllers\HomeController.cs" />
+    <Compile Include="Utilities\BaseSupportFormula.cs" />
+    <Compile Include="DAL\AdditionalChildrenRepo.cs" />
     <Compile Include="DAL\CalculationContext.cs" />
-    <Compile Include="DAL\GeneralSupportBracketRepo.cs" />
+    <Compile Include="DAL\GeneralCareSupportRepo.cs" />
     <Compile Include="DAL\LowIncomeRepo.cs" />
-    <Compile Include="DAL\OrdinaryMedExpAvgRepo.cs" />
+    <Compile Include="DAL\OrdinaryMedExpRepo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502080451393_Calc-1.cs" />
-    <Compile Include="Migrations\201502080451393_Calc-1.Designer.cs">
-      <DependentUpon>201502080451393_Calc-1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Utilities\IncomePercent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +213,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Areas\MainPage\Views\web.config" />
     <None Include="Properties\PublishProfiles\MCSF - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\MCSF - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -234,16 +238,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\MainPage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MainPage\Views\Home\Index.cshtml" />
+    <Content Include="Areas\MainPage\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\MainPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502080451393_Calc-1.resx">
-      <DependentUpon>201502080451393_Calc-1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MCSF;
-using MCSF.Controllers;
+using MCSF.Areas.MainPage.Controllers;
 
 namespace MCSF.Tests.Controllers
 {

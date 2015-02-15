@@ -11,7 +11,7 @@ using System.Web.Http.Results;
 namespace MCSF.Tests.ApiControllers
 {
     [TestClass]
-    public class LowIncome
+    public class LowIncomeTest
     {
         [TestMethod]
         public async Task TransitionMultiplier()

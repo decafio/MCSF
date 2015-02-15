@@ -28,9 +28,12 @@ namespace MCSF
 
             // Setup to return json and camelcase it!
             // http://channel9.msdn.com/Events/Build/2014/3-644 (41min)
-            var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-            formatter.SerializerSettings.ContractResolver =
-                new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+            //var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            //formatter.SerializerSettings.ContractResolver =
+            //    new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
 
             // config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }

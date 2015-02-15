@@ -9,12 +9,23 @@ using System.Data.Entity; // Async extensions, Include
 
 namespace MCSF.DAL
 {
-    public class OrdinaryMedExpRepo
+    public static class OrdinaryMedExpRepo
     {
+
+        internal static async Task<decimal> Monthly(int childCount)
+        {
+            return (await GetOrdinaryMedExp(childCount)).MonthlyAmount;
+        }
+
+        internal static async Task<decimal> Annual(int childCount)
+        {
+            return (await GetOrdinaryMedExp(childCount)).AnnualAmount;
+        }
+
         /// <summary>
         /// Returns the Average Medical Expense Average Monthly amount from MCSF Supp Sec 2.02 Pg1
         /// </summary>
-        public async Task<OrdinaryMedExp> GetOrdinaryMedExp(int childCount)
+        private static async Task<OrdinaryMedExp> GetOrdinaryMedExp(int childCount)
         {
             CalculationContext calcContext = new CalculationContext();
 

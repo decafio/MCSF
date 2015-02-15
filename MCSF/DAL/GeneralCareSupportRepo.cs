@@ -9,9 +9,9 @@ using System.Data.Entity; // Async extensions, Include
 
 namespace MCSF.DAL
 {
-    public class GeneralSupportBracketRepo
+    public static class GeneralCareSupportRepo
     {
-        public async Task<GeneralCareSupport> GetGeneralSupportBracket(decimal combinedNetIncome, int childCount)
+        public static async Task<GeneralCareSupport> GetGeneralSupportBracket(decimal combinedNetIncome, int childCount)
         {
             CalculationContext calcContext = new CalculationContext();
 

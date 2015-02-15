@@ -10,27 +10,27 @@ namespace MCSF.Tests.ApiControllers
     public class ObligationTest
     {
         [TestMethod]
-        public async Task Obligation()
+        public async Task Obligation_StandardSupport_3Children()
         {
             // Arrange
             ObligationController sut = new ObligationController();
             
             // Act
-            var result = await sut.BaseSupport(4372m, .30m, 3) as OkNegotiatedContentResult<int>;
+            var result = await sut.StandardSupport(4372m, .30m, 3) as OkNegotiatedContentResult<int>;
 
             // Assert
             Assert.AreEqual(507, result.Content);
         }
 
         [TestMethod]
-        public async Task Obligation_Over5Children()
+        public async Task Obligation_StandardSupport_Over5Children()
         {
             // Arrange
             ObligationController sut = new ObligationController(); ;
 
             // Act
-            var result = await sut.BaseSupport(4372m, .30m, 5) as OkNegotiatedContentResult<int>;
-            var result2 = await sut.BaseSupport(4372m, .30m, 7) as OkNegotiatedContentResult<int>;
+            var result = await sut.StandardSupport(4372m, .30m, 5) as OkNegotiatedContentResult<int>;
+            var result2 = await sut.StandardSupport(4372m, .30m, 7) as OkNegotiatedContentResult<int>;
 
             // Assert
             Assert.AreEqual(result.Content, result2.Content);

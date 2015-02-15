@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MCSF.Controllers
+namespace MCSF.Areas.MainPage.Controllers
 {
     public class HomeController : Controller
     {

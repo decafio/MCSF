@@ -5,42 +5,34 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-using MCSF.ApiModels;
-using MCSF.DAL;
 using System.Threading.Tasks;
 using System.Data.Entity; // Async extensions, Include
+
+using MCSF.ApiModels;
+using MCSF.DAL;
+using MCSF.Utilities;
+using MCSF.ApiCalculations;
 
 namespace MCSF.ApiControllers
 {
     public class ObligationController : ApiController
     {
         [HttpGet]
-        public async Task<IHttpActionResult> BaseSupport(decimal combinedNetIncome, decimal incomePercent, int childCount)
+        public async Task<IHttpActionResult> BaseSupport(decimal NetIncomeA, decimal NetIncomeB, int ChildCount)
         {
-            return Ok(await CalculateBaseSupport(combinedNetIncome, incomePercent, childCount));
+            return Ok(await ObligationCalcs.BaseSupport(NetIncomeA, NetIncomeB, ChildCount));
         }
 
-        private static async Task<int> CalculateBaseSupport(decimal combinedNetIncome, decimal incomePercent, int childCount)
+        [HttpGet]
+        public async Task<IHttpActionResult> StandardSupport(decimal NetIncome, decimal IncomePercent, int ChildCount)
         {
-            // Child count only goes to 5
-            if (childCount > 5) childCount = 5;
+            return Ok(await ObligationCalcs.StandardSupport(NetIncome, IncomePercent, ChildCount));
+        }
 
-            //      {A + [B x (C – D)]} x E = G 
-            //          A = Base Support (General Care Support table, column 3) 
-            //          B = Marginal Percentage (General Care Support table, column 4) 
-            //          C = Monthly Net Family Income (§3.02(B)(1)) 
-            //          D = Monthly Income Level (General Care Support table, first column) 
-            //          E = Parent’s Percentage Share of Family Income (§3.01(B)(1)) 
-            //          G = (BSO) Base Support obligation using the General Care Equation (round to the nearest whole dollar) 
-
-            GeneralSupportBracketRepo repo = new GeneralSupportBracketRepo();
-            GeneralCareSupport GCS = await repo.GetGeneralSupportBracket(combinedNetIncome, childCount);
-
-            //       G  = {    A           + [    B               x (C                 -     D                      )]} x E
-            decimal BSO = (GCS.BaseSupport + (GCS.MarginalPercent * (combinedNetIncome - GCS.IncomeBracket.IncomeMin))) * incomePercent;
-
-            // This returns an INT because part G of this equations reads "round to the nearest whole dollar"
-            return Convert.ToInt32(BSO);
+        [HttpGet]
+        public async Task<IHttpActionResult> BaseSupport_3rdParty(decimal NetIncome, int ChildCount)
+        {
+            return Ok(await ObligationCalcs.BaseSupport_3rdParty(NetIncome, ChildCount));
         }
     }
 }

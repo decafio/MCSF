@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using MCSF.DAL;
+using System.Threading.Tasks;
+
 namespace MCSF.ApiCalculations
 {
     public static class AllocationCalcs
@@ -129,11 +132,10 @@ namespace MCSF.ApiCalculations
             return AllocationPayer - AllocationPayee;
         }
 
-
         /// <summary>
         /// Used for Third Party calculations. Splits the cost of Insurance Premium or Child Case paid by a Third Party between the two parents
         /// </summary>
-        public decimal GetThirdPartyShare(decimal thirdPartyPremiumAmount, int childCount, decimal payerIncomeShare)
+        internal static decimal ThirdPartyShare(decimal thirdPartyPremiumAmount, int childCount, decimal payerIncomeShare)
         {
             return thirdPartyPremiumAmount * childCount * payerIncomeShare;
         }
@@ -141,9 +143,9 @@ namespace MCSF.ApiCalculations
         /// <summary>
         /// Provides an English written explanation of what to do about paying for Health Insurance
         /// </summary>
-        public string GetHealthCarePremiumReview(decimal GrossMonthlyIncome, decimal MonthlyInsurancePremium, ref string status)
+        internal static async Task<string> HealthCarePremiumReview(decimal GrossMonthlyIncome, decimal MonthlyInsurancePremium)
         {
-            // 3.05(A) Reasonable Cost of Coverage 
+            // 3.05(A) Reasonable Cost of Coverage
             //   A reasonable cost for providing private health care coverage for the children does not exceed 5 percent of the providing parent’s gross income. 
             //     (1) Parents with a net income below 133 percent of the federal poverty level or whose child is covered by 
             //         Medicaid based on that parent’s income should not be ordered to contribute toward or provide private coverage, 
@@ -153,30 +155,29 @@ namespace MCSF.ApiCalculations
             //         health care insurance exceeds 50 percent of the parent's regular aggregate disposable earnings. 
 
             // Get the Poverty level from db
-            decimal povertyLevel133Percent = Convert.ToDecimal(MCSF.GetLowIncomeThreshold() * 1.33);
+            int lowIncomeThreshold = await LowIncomeRepo.GetLowIncomeThresholdAmount();
+            decimal povertyLevel133Percent = Convert.ToDecimal(lowIncomeThreshold * 1.33);
             int grossIncome5Percent = Convert.ToInt32(GrossMonthlyIncome * .05m);
 
+            string message = "";
             if (GrossMonthlyIncome < povertyLevel133Percent)
             {
-                status = "alert-danger";
-                return "'s gross income is below 133% the federal poverty level and should not be ordered to contribute toward or provide private coverage, unless private coverage is obtainable without any financial contribution by that parent. (2103 MCSF 3.05(A)(1))";
+                message = "'s gross income is below 133% the federal poverty level and should not be ordered to contribute toward or provide private coverage, unless private coverage is obtainable without any financial contribution by that parent. (2103 MCSF 3.05(A)(1))";
             }
             else if (MonthlyInsurancePremium <= 0)
             {
-                status = "alert-danger";
-                return " currently pays no Health Insurance Premium. If the children’s net determinable portion of health insurance premiums is available at or below $" + grossIncome5Percent + " it should be purchased.";
+                message = " currently pays no Health Insurance Premium. If the children’s net determinable portion of health insurance premiums is available at or below $" + grossIncome5Percent + " it should be purchased.";
             }
             else if (MonthlyInsurancePremium < grossIncome5Percent)
             {
-                status = "alert-success";
-                return " has child insurance costs of $" + MonthlyInsurancePremium + ". This is below their Reasonable Cost of Coverage of $" + grossIncome5Percent + ".";
+                message = " has child insurance costs of $" + MonthlyInsurancePremium + ". This is below their Reasonable Cost of Coverage of $" + grossIncome5Percent + ".";
             }
             else
             {
-                status = "alert-danger";
-                return " has child insurance costs of $" + MonthlyInsurancePremium + ". This is above their Reasonable Cost of Coverage of $" + grossIncome5Percent + ".";
+                message = " has child insurance costs of $" + MonthlyInsurancePremium + ". This is above their Reasonable Cost of Coverage of $" + grossIncome5Percent + ".";
             }
-        }
 
+            return message;
+        }
     }
 }

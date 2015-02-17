@@ -123,10 +123,12 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiCalculations\AllocationCalcs.cs" />
     <Compile Include="ApiCalculations\LowIncomeCalcs.cs" />
     <Compile Include="ApiCalculations\ObligationCalcs.cs" />
     <Compile Include="ApiCalculations\OrdinaryMedExpCalcs.cs" />
     <Compile Include="ApiControllers\AdditionalChildrenController.cs" />
+    <Compile Include="ApiControllers\AllocationController.cs" />
     <Compile Include="ApiControllers\HealthController.cs" />
     <Compile Include="ApiControllers\ObligationController.cs" />
     <Compile Include="ApiControllers\OffSetController.cs" />

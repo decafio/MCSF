@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data/XmlDocument.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -118,20 +119,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\MainPage\Models\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiCalculations\AllocationCalcs.cs" />
+    <Compile Include="ApiCalculations\HealthCarePremiumCalcs.cs" />
     <Compile Include="ApiCalculations\LowIncomeCalcs.cs" />
     <Compile Include="ApiCalculations\ObligationCalcs.cs" />
     <Compile Include="ApiCalculations\OrdinaryMedExpCalcs.cs" />
-    <Compile Include="ApiControllers\AdditionalChildrenController.cs" />
-    <Compile Include="ApiControllers\AllocationController.cs" />
-    <Compile Include="ApiControllers\HealthController.cs" />
+    <Compile Include="ApiControllers\AdditionalChildrenMultiplierController.cs" />
+    <Compile Include="ApiControllers\ChildCareController.cs" />
+    <Compile Include="ApiControllers\HealthCarePremiumController.cs" />
+    <Compile Include="ApiControllers\ReasonableCostController.cs" />
     <Compile Include="ApiControllers\ObligationController.cs" />
-    <Compile Include="ApiControllers\OffSetController.cs" />
+    <Compile Include="ApiControllers\ParentalTimeOffSetController.cs" />
     <Compile Include="ApiControllers\OrdinaryMedExpController.cs" />
     <Compile Include="ApiControllers\LowIncomeController.cs" />
     <Compile Include="ApiModels\AdditionalChildren.cs" />
@@ -139,7 +141,7 @@
     <Compile Include="ApiModels\BaseSupport.cs" />
     <Compile Include="ApiModels\IncomeBracket.cs" />
     <Compile Include="ApiModels\LowIncomeThreshold.cs" />
-    <Compile Include="ApiModels\OrdinaryMedExp.cs" />
+    <Compile Include="ApiModels\OrdinaryMedicalExpense.cs" />
     <Compile Include="ApiModels\TransitionAdjustment.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\XmlDocument.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

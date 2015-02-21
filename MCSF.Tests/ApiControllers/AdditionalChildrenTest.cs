@@ -13,10 +13,10 @@ namespace MCSF.Tests.ApiControllers
         public async Task AdditionalChildren()
         {
             // Arrange
-            AdditionalChildrenController sut = new AdditionalChildrenController();
+            AdditionalChildrenMultiplierController sut = new AdditionalChildrenMultiplierController();
             
             // Act
-            var result = await sut.Multiplier(2) as OkNegotiatedContentResult<decimal>;
+            var result = await sut.Get(2) as OkNegotiatedContentResult<decimal>;
 
             // Assert
             Assert.AreEqual(.77m, result.Content);
@@ -26,11 +26,11 @@ namespace MCSF.Tests.ApiControllers
         public async Task AdditionalChildren_Over5Children()
         {
             // Arrange
-            AdditionalChildrenController sut = new AdditionalChildrenController(); ;
+            AdditionalChildrenMultiplierController sut = new AdditionalChildrenMultiplierController(); ;
 
             // Act
-            var result = await sut.Multiplier(5) as OkNegotiatedContentResult<decimal>;
-            var result2 = await sut.Multiplier(7) as OkNegotiatedContentResult<decimal>;
+            var result = await sut.Get(5) as OkNegotiatedContentResult<decimal>;
+            var result2 = await sut.Get(7) as OkNegotiatedContentResult<decimal>;
 
             // Assert
             Assert.AreEqual(result.Content, result2.Content);

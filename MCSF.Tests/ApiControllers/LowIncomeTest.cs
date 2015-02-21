@@ -13,17 +13,6 @@ namespace MCSF.Tests.ApiControllers
     [TestClass]
     public class LowIncomeTest
     {
-        [TestMethod]
-        public async Task TransitionMultiplier()
-        {
-            // Arrange
-            LowIncomeController sut = new LowIncomeController();
 
-            // Act
-            var result = await sut.TransitionMultiplier(3) as OkNegotiatedContentResult<decimal>;
-
-            // Assert
-            Assert.AreEqual(.60m, result.Content);
-        }
     }
 }

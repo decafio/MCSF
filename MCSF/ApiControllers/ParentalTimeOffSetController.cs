@@ -10,18 +10,27 @@ using System.Threading.Tasks;
 
 namespace MCSF.ApiControllers
 {
-    public class OffSetController : ApiController
+    public class ParentalTimeOffSetController : ApiController
     {
+        /// <summary>
+        /// MCSF 3.03 Adjusting Base Obligation with the Parental Time Offset: Presuming that as parents spend more 
+        /// time with their children they will directly contribute a greater share of the children’s expenses, a base 
+        /// support obligation needs to offset some of the costs and savings associated with time spent with each parent
+        /// </summary>
+        /// <param name="parentANights"></param>
+        /// <param name="parentASupport"></param>
+        /// <param name="parentBSupport"></param>
+        /// <returns>(int) A negative result means that parent A pays and a positive result means parent B pays.</returns>
         [HttpGet]
-        public IHttpActionResult Get(double parentANights, int parentASupport, int parentBSupport)
+        public IHttpActionResult Support(double parentANights, int parentASupport, int parentBSupport)
         {
-            return Ok(ParentalTimeOffSet(parentANights, parentASupport, parentBSupport));
+            return Ok(ParentalTimeOffSetSupport(parentANights, parentASupport, parentBSupport));
         }
 
         /// <summary>
         /// A negative result means that parent A pays and a positive result means parent B pays.
         /// </summary>
-        private int ParentalTimeOffSet(double OvernightsA, int SupportObligationA, int SupportObligationB)
+        private int ParentalTimeOffSetSupport(double OvernightsA, int SupportObligationA, int SupportObligationB)
         {
             // 3.03 Adjusting Base Obligation with the Parental Time Offset
             //

@@ -34,5 +34,3 @@ c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\bin\Antlr3.Runtim
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.csprojResolveAssemblyReference.cache
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.dll
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.pdb
-C:\Users\Jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.Migrations.Calc1.resources
-C:\Users\Jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.csproj.GenerateResource.Cache

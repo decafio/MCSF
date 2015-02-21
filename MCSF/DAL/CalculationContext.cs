@@ -16,13 +16,13 @@ namespace MCSF.DAL
         public DbSet<GeneralCareSupport> GeneralCareSupports { get; set; }
         public DbSet<IncomeBracket> IncomeBrackets { get; set; }
         public DbSet<LowIncomeThreshold> LowIncomeThresholds { get; set; }
-        public DbSet<OrdinaryMedExp> OrdinaryMedExps { get; set; }
+        public DbSet<OrdinaryMedicalExpense> OrdinaryMedExps { get; set; }
         public DbSet<TransitionAdjustment> TransitionAdjustments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TransitionAdjustment>().Property(x => x.Multiplier).HasPrecision(3, 2);
-            modelBuilder.Entity<OrdinaryMedExp>().Property(x => x.MonthlyAmount).HasPrecision(8, 2);
+            modelBuilder.Entity<OrdinaryMedicalExpense>().Property(x => x.MonthlyAmount).HasPrecision(8, 2);
             modelBuilder.Entity<GeneralCareSupport>().Property(x => x.BasePercent).HasPrecision(5, 4);
             modelBuilder.Entity<GeneralCareSupport>().Property(x => x.BasePercent).HasPrecision(8, 2);
             modelBuilder.Entity<GeneralCareSupport>().Property(x => x.MarginalPercent).HasPrecision(5, 4);

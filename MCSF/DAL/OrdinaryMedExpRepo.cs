@@ -25,17 +25,17 @@ namespace MCSF.DAL
         /// <summary>
         /// Returns the Average Medical Expense Average Monthly amount from MCSF Supp Sec 2.02 Pg1
         /// </summary>
-        private static async Task<OrdinaryMedExp> GetOrdinaryMedExp(int childCount)
+        private static async Task<OrdinaryMedicalExpense> GetOrdinaryMedExp(int childCount)
         {
             CalculationContext calcContext = new CalculationContext();
 
             // Formula only goes up to 5 children
             if (childCount > 5) childCount = 5;
 
-            if (childCount < 1) return new OrdinaryMedExp() { };
+            if (childCount < 1) return new OrdinaryMedicalExpense() { };
             else
             {
-                OrdinaryMedExp ordinaryMedExpAvg = await calcContext.OrdinaryMedExps.Where(c => c.ChildCount == childCount).FirstAsync();
+                OrdinaryMedicalExpense ordinaryMedExpAvg = await calcContext.OrdinaryMedExps.Where(c => c.ChildCount == childCount).FirstAsync();
 
                 return ordinaryMedExpAvg;
             }

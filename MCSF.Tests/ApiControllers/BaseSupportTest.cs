@@ -7,16 +7,16 @@ using System.Web.Http.Results;
 namespace MCSF.Tests.ApiControllers
 {
     [TestClass]
-    public class ObligationTest
+    public class BaseSupportTest
     {
         [TestMethod]
         public async Task Obligation_StandardSupport_3Children()
         {
             // Arrange
-            ObligationController sut = new ObligationController();
+            BaseSupportController sut = new BaseSupportController();
             
             // Act
-            var result = await sut.StandardSupport(4372m, .30m, 3) as OkNegotiatedContentResult<int>;
+            var result = await sut.GeneralCareEquation(4372m, .30m, 3) as OkNegotiatedContentResult<int>;
 
             // Assert
             Assert.AreEqual(507, result.Content);
@@ -26,11 +26,11 @@ namespace MCSF.Tests.ApiControllers
         public async Task Obligation_StandardSupport_Over5Children()
         {
             // Arrange
-            ObligationController sut = new ObligationController(); ;
+            BaseSupportController sut = new BaseSupportController(); ;
 
             // Act
-            var result = await sut.StandardSupport(4372m, .30m, 5) as OkNegotiatedContentResult<int>;
-            var result2 = await sut.StandardSupport(4372m, .30m, 7) as OkNegotiatedContentResult<int>;
+            var result = await sut.GeneralCareEquation(4372m, .30m, 5) as OkNegotiatedContentResult<int>;
+            var result2 = await sut.GeneralCareEquation(4372m, .30m, 7) as OkNegotiatedContentResult<int>;
 
             // Assert
             Assert.AreEqual(result.Content, result2.Content);

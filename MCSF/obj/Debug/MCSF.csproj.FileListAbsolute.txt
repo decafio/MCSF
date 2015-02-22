@@ -34,3 +34,4 @@ c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\bin\Antlr3.Runtim
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Debug\MCSF.dll
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Debug\MCSF.pdb
 C:\Users\Jason\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\XmlDocument.xml
+C:\Users\Jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Debug\MCSF.csprojResolveAssemblyReference.cache

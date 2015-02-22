@@ -125,14 +125,13 @@
   <ItemGroup>
     <Compile Include="ApiCalculations\AllocationCalcs.cs" />
     <Compile Include="ApiCalculations\HealthCarePremiumCalcs.cs" />
-    <Compile Include="ApiCalculations\LowIncomeCalcs.cs" />
-    <Compile Include="ApiCalculations\ObligationCalcs.cs" />
+    <Compile Include="ApiCalculations\BaseSupportCalcs.cs" />
     <Compile Include="ApiCalculations\OrdinaryMedExpCalcs.cs" />
     <Compile Include="ApiControllers\AdditionalChildrenMultiplierController.cs" />
     <Compile Include="ApiControllers\ChildCareController.cs" />
     <Compile Include="ApiControllers\HealthCarePremiumController.cs" />
     <Compile Include="ApiControllers\ReasonableCostController.cs" />
-    <Compile Include="ApiControllers\ObligationController.cs" />
+    <Compile Include="ApiControllers\BaseSupportController.cs" />
     <Compile Include="ApiControllers\ParentalTimeOffSetController.cs" />
     <Compile Include="ApiControllers\OrdinaryMedExpController.cs" />
     <Compile Include="ApiControllers\LowIncomeController.cs" />

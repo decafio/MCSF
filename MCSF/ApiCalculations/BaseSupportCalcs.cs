@@ -12,9 +12,17 @@ using MCSF.Utilities;
 
 namespace MCSF.ApiCalculations
 {
-    public class ObligationCalcs
+    public class BaseSupportCalcs
     {
-        internal static async Task<int> StandardSupport(decimal combinedNetIncome, decimal incomePercent, int childCount)
+        /// <summary>
+        /// 3.02(B) General Care Equation: (BSO) Base Support obligation using the General Care Equation 
+        /// (round to the nearest whole dollar)
+        /// </summary>
+        /// <param name="combinedNetIncome"></param>
+        /// <param name="incomePercent"></param>
+        /// <param name="childCount"></param>
+        /// <returns>(int) Base Suport Obligation </returns>
+        internal static async Task<int> GeneralCareEquation(decimal combinedNetIncome, decimal incomePercent, int childCount)
         {
             // Child count only goes to 5
             if (childCount > 5) childCount = 5;
@@ -36,13 +44,46 @@ namespace MCSF.ApiCalculations
             return Convert.ToInt32(BSO);
         }
 
+        internal static int LowIncomeEquation(decimal income)
+        {
+            //~TODO~ verify that the income is below the Low Income Threshold
+
+            // F x 10% = L 
+            // F = Parent’s Monthly Net Income, when below the Low Income Threshold (§2.09(A)) 
+            // 10% = Percentage for Income below the threshold 
+            // L = Base Support (round to the nearest whole dollar)
+
+            // This returns an INT because Support Obligation is stated to be "round to the nearest whole dollar"
+            return Convert.ToInt32(income * .1m);
+        }
+
+        internal static async Task<int> LowIncomeTransitionEquation(decimal income, int childCount)
+        {
+            // (H x 10%) + [(I - H) x P] = T 
+            // H = Low Income Threshold (§2.09(A)) 
+            // 10% = Percentage for Income below the threshold (§3.02(C)(1)) 
+            // I(income) = Parent’s Monthly Net Income 
+            // P = Percentage Multiplier for the appropriate number of children from the Transition Adjustment table 
+            // T = Base Support obligation using the Low Income Transition Equation
+
+            // Get Multiplier
+            decimal P = await LowIncomeRepo.GetLowIncomeTransitionMultiplier(childCount);
+            int lowIncomeThreshold = await LowIncomeRepo.GetLowIncomeThresholdAmount();
+
+            // This returns an INT because Support Obligation is stated to be "round to the nearest whole dollar"
+            return Convert.ToInt32((lowIncomeThreshold * .10m) + ((income - lowIncomeThreshold) * P));
+        }
+
         /// <summary>
-        /// Return "Base Support Obligation (BSO)"
         /// General Care Support Tables MCSF Supplement Section 2.03 Pg 1-3
         /// 2.03(A) Based on the estimated costs of raising children, the General Care Equation (2013 MCSF 3.02(B))
         /// uses variable percentages of family income to determine a child support obligation. The General Care Support 
         /// Tables contain those figures and percentages exclude medical or child care expenses.
         /// </summary>
+        /// <param name="parentANetIncome"></param>
+        /// <param name="parentBNetIncome"></param>
+        /// <param name="childCount"></param>
+        /// <returns>BaseSupport "Base Support Obligation (BSO)"</returns>
         internal static async Task<BaseSupports> BaseSupport(decimal parentANetIncome, decimal parentBNetIncome, int childCount)
         {
             BaseSupports supports = new ApiModels.BaseSupports();
@@ -62,22 +103,22 @@ namespace MCSF.ApiCalculations
                 // L = Base Support (round to the nearest whole dollar)
 
                 // This returns an INT because Support Obligation is stated to be "round to the nearest whole dollar"
-                supports.ParentA.BaseObligation = LowIncomeCalcs.Obligation(parentANetIncome); // GetLowIncomeObligation(parentANetIncome);
+                supports.ParentA.BaseObligation = BaseSupportCalcs.LowIncomeEquation(parentANetIncome); // GetLowIncomeObligation(parentANetIncome);
                 supports.ParentA.FormulaUsed = SupportFormula.LowIncome.ToString();
 
-                supports.ParentB.BaseObligation = LowIncomeCalcs.Obligation(parentBNetIncome);
+                supports.ParentB.BaseObligation = BaseSupportCalcs.LowIncomeEquation(parentBNetIncome);
                 supports.ParentB.FormulaUsed = SupportFormula.LowIncome.ToString();
             }
             else if (parentANetIncome < LowIncomeThreshold)
             {
-                supports.ParentA.BaseObligation = LowIncomeCalcs.Obligation(parentANetIncome);
+                supports.ParentA.BaseObligation = BaseSupportCalcs.LowIncomeEquation(parentANetIncome);
                 supports.ParentA.FormulaUsed = SupportFormula.LowIncome.ToString();
 
                 // Since Parent A's income is below low income only Parent B's income is used as the "Combined Net Income"
-                supports.ParentB.BaseObligation = await StandardSupport(parentBNetIncome, 1m, childCount);
+                supports.ParentB.BaseObligation = await GeneralCareEquation(parentBNetIncome, 1m, childCount);
                 supports.ParentB.FormulaUsed = SupportFormula.Standard.ToString();
 
-                int parentBLowIncomeBaseSupport = await LowIncomeCalcs.TransitionObligation(parentBNetIncome, childCount);
+                int parentBLowIncomeBaseSupport = await BaseSupportCalcs.LowIncomeTransitionEquation(parentBNetIncome, childCount);
 
                 if (parentBLowIncomeBaseSupport < supports.ParentB.BaseObligation)
                 {
@@ -87,14 +128,14 @@ namespace MCSF.ApiCalculations
             }
             else if (parentBNetIncome < LowIncomeThreshold)
             {
-                supports.ParentB.BaseObligation = LowIncomeCalcs.Obligation(parentBNetIncome);
+                supports.ParentB.BaseObligation = BaseSupportCalcs.LowIncomeEquation(parentBNetIncome);
                 supports.ParentB.FormulaUsed = SupportFormula.LowIncome.ToString();
 
                 // Since Parent A's income is below low income only Parent B's income is used as the "Combined Net Income"
-                supports.ParentA.BaseObligation = await StandardSupport(parentANetIncome, 1m, childCount);
+                supports.ParentA.BaseObligation = await GeneralCareEquation(parentANetIncome, 1m, childCount);
                 supports.ParentA.FormulaUsed = SupportFormula.Standard.ToString();
 
-                int parentALowIncomeBaseSupport = await LowIncomeCalcs.TransitionObligation(parentANetIncome, childCount);
+                int parentALowIncomeBaseSupport = await BaseSupportCalcs.LowIncomeTransitionEquation(parentANetIncome, childCount);
 
                 if (parentALowIncomeBaseSupport < supports.ParentA.BaseObligation)
                 {
@@ -109,10 +150,10 @@ namespace MCSF.ApiCalculations
                 decimal parentBIncomePercent = 1 - parentAIncomePercent;
 
                 // Since both parents are above the Low Income Threshold we will combine their income
-                supports.ParentA.BaseObligation = await StandardSupport(combinedNetIncome, parentAIncomePercent, childCount);
+                supports.ParentA.BaseObligation = await GeneralCareEquation(combinedNetIncome, parentAIncomePercent, childCount);
                 supports.ParentA.FormulaUsed = SupportFormula.Standard.ToString();
 
-                int parentALowIncomeBaseSupport = await LowIncomeCalcs.TransitionObligation(parentANetIncome, childCount);
+                int parentALowIncomeBaseSupport = await BaseSupportCalcs.LowIncomeTransitionEquation(parentANetIncome, childCount);
 
                 if (parentALowIncomeBaseSupport < supports.ParentA.BaseObligation)
                 {
@@ -120,10 +161,10 @@ namespace MCSF.ApiCalculations
                     supports.ParentA.FormulaUsed = SupportFormula.LowIncomeTransition.ToString();
                 }
 
-                supports.ParentB.BaseObligation = await StandardSupport(combinedNetIncome, parentBIncomePercent, childCount);
+                supports.ParentB.BaseObligation = await GeneralCareEquation(combinedNetIncome, parentBIncomePercent, childCount);
                 supports.ParentB.FormulaUsed = SupportFormula.Standard.ToString();
 
-                int parentBLowIncomeBaseSupport = await LowIncomeCalcs.TransitionObligation(parentBNetIncome, childCount);
+                int parentBLowIncomeBaseSupport = await BaseSupportCalcs.LowIncomeTransitionEquation(parentBNetIncome, childCount);
 
                 if (parentBLowIncomeBaseSupport < supports.ParentB.BaseObligation)
                 {
@@ -177,16 +218,16 @@ namespace MCSF.ApiCalculations
 
             if (parentNetIncome < LowIncomeThreshold)
             {
-                support.BaseObligation = LowIncomeCalcs.Obligation(parentNetIncome);
+                support.BaseObligation = BaseSupportCalcs.LowIncomeEquation(parentNetIncome);
                 support.FormulaUsed = SupportFormula.LowIncome.ToString();
             } 
             else
             {
                 // Since parent's income is above the Low Income Threshold
-                support.BaseObligation = await ObligationCalcs.StandardSupport(parentNetIncome, 1m, childCount);
+                support.BaseObligation = await BaseSupportCalcs.GeneralCareEquation(parentNetIncome, 1m, childCount);
                 support.FormulaUsed = SupportFormula.Standard.ToString();
 
-                int lowIncomeSupportObligation = await LowIncomeCalcs.TransitionObligation(parentNetIncome, childCount);
+                int lowIncomeSupportObligation = await BaseSupportCalcs.LowIncomeTransitionEquation(parentNetIncome, childCount);
 
                 if (lowIncomeSupportObligation < support.BaseObligation)
                 {

@@ -14,14 +14,27 @@
             Provides an English written explanation of what to do about paying for Health Insurance
             </summary>
         </member>
-        <member name="M:MCSF.ApiCalculations.ObligationCalcs.BaseSupport(System.Decimal,System.Decimal,System.Int32)">
+        <member name="M:MCSF.ApiCalculations.BaseSupportCalcs.GeneralCareEquation(System.Decimal,System.Decimal,System.Int32)">
             <summary>
-            Return "Base Support Obligation (BSO)"
+            3.02(B) General Care Equation: (BSO) Base Support obligation using the General Care Equation 
+            (round to the nearest whole dollar)
+            </summary>
+            <param name="combinedNetIncome"></param>
+            <param name="incomePercent"></param>
+            <param name="childCount"></param>
+            <returns>(int) Base Suport Obligation </returns>
+        </member>
+        <member name="M:MCSF.ApiCalculations.BaseSupportCalcs.BaseSupport(System.Decimal,System.Decimal,System.Int32)">
+            <summary>
             General Care Support Tables MCSF Supplement Section 2.03 Pg 1-3
             2.03(A) Based on the estimated costs of raising children, the General Care Equation (2013 MCSF 3.02(B))
             uses variable percentages of family income to determine a child support obligation. The General Care Support 
             Tables contain those figures and percentages exclude medical or child care expenses.
             </summary>
+            <param name="parentANetIncome"></param>
+            <param name="parentBNetIncome"></param>
+            <param name="childCount"></param>
+            <returns>BaseSupport "Base Support Obligation (BSO)"</returns>
         </member>
         <member name="M:MCSF.ApiCalculations.OrdinaryMedExpCalcs.MonthlyObligation(System.Int32,System.Decimal)">
             <summary>
@@ -49,7 +62,7 @@
             <param name="payerIncomePercent"></param>
             <param name="payeeChildCareAmount"></param>
             <param name="payeeIncomePercent"></param>
-            <returns></returns>
+            <returns>(decimal) Amount to be applied to the Base Child Support</returns>
         </member>
         <member name="M:MCSF.ApiControllers.HealthCarePremiumController.ThirdParty(System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Int32)">
             <summary>
@@ -86,6 +99,58 @@
             <returns>Returns the maximum amount of a parent would be reasonably expected 
             to pay towards the childrens share of healthcare premiums.</returns>
         </member>
+        <member name="M:MCSF.ApiControllers.BaseSupportController.BaseSupport(System.Decimal,System.Decimal,System.Int32)">
+            <summary>
+            MCSF 3.02 Base Support Obligation: A parent’s child support obligation consists of (1) a base support obligation 
+            adjusted for parenting time (MCSF 3.03); (2) medical support obligations expenses (MCSF 3.04), health care coverage 
+            and division of premiums (MCSF 3.05); and (3) child care expense obligations (MCSF 3.06).
+            </summary>
+            <param name="NetIncomeA">Parent A Net Income</param>
+            <param name="NetIncomeB">Parent B Net Income</param>
+            <param name="ChildCount">Number of Children in common in the marriage in the custody of the parents.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MCSF.ApiControllers.BaseSupportController.ThirdParty(System.Decimal,System.Int32)">
+            <summary>
+            MCSF 3.02 Base Support Obligation: MCSF 4.01(A) When a third party has custody of a child, 
+            both parents should pay support.
+            </summary>
+            <param name="NetIncome">Individual Parents Income: MCSF 4.01(A) Determine each parent’s base support obligation according to that parent’s 
+            individual income. </param>
+            <param name="ChildCount">Number of Children in common in the marriage in the custody of a Third Party.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MCSF.ApiControllers.BaseSupportController.GeneralCareEquation(System.Decimal,System.Decimal,System.Int32)">
+            <summary>
+            3.02(B) General Care Equation: (1) Determine the monthly family income by combining the parents’ net incomes.
+            (2) Solve the following equation using the General Care Support Table (found in the supplement) for the 
+            appropriate number of children that the parents have in common and its amounts and percentages from the 
+            highest monthly income level that does not exceed the family’s net monthly income.
+            </summary>
+            <param name="NetIncome">Combined income of both parents</param>
+            <param name="IncomePercent"></param>
+            <param name="ChildCount"></param>
+            <returns>(int) Base Support Obligation (rounded to the nearest whole dollar) </returns>
+        </member>
+        <member name="M:MCSF.ApiControllers.BaseSupportController.LowIncomeEquation(System.Decimal)">
+            <summary>
+            3.02(C) Low Income Equation: When a parent’s monthly net income does not exceed the Low Income Threshold, the 
+            parent’s base support obligation is 10 percent of that parent’s income.
+            </summary>
+            <param name="income"></param>
+            <returns>Returns the monthly support obligation for a person below the Low Income Threshold.</returns>
+        </member>
+        <member name="M:MCSF.ApiControllers.BaseSupportController.LowIncomeTransitionEquation(System.Decimal,System.Int32)">
+            <summary>
+            3.02(D) Low Income Transition Equation: When a parent’s net income exceeds the Low Income Threshold, that parent’s 
+            base support obligation will generally be determined using the General Care Equation. However, if the following 
+            equation’s result is lower than the amount calculated using the General Care Equation, a parent’s base support 
+            obligation is the amount determined by applying this equation.
+            </summary>        
+            <param name="income"></param>
+            <param name="childCount"></param>
+            <returns>(int) Monthly support obligation for a person slightly above Low Income.</returns>
+        </member>
         <member name="M:MCSF.ApiControllers.ParentalTimeOffSetController.Support(System.Double,System.Int32,System.Int32)">
             <summary>
             MCSF 3.03 Adjusting Base Obligation with the Parental Time Offset: Presuming that as parents spend more 
@@ -102,30 +167,56 @@
             A negative result means that parent A pays and a positive result means parent B pays.
             </summary>
         </member>
+        <member name="T:MCSF.ApiControllers.OrdinaryMedExpController">
+            <summary>
+            MCSF-S 2.02 Ordinary Medical Expense Amounts: (A) On average, families spend $357 for one child annually on 
+            ordinary medical expenses. The Ordinary Medical Expense Averages table states the amounts families are presumed to 
+            spend on ordinary medical expenses. 
+            </summary>
+        </member>
+        <member name="M:MCSF.ApiControllers.OrdinaryMedExpController.Monthly(System.Int32)">
+            <summary>
+            MCSF-S 2.02 Ordinary Medical Expense Averages table. The average amount familes are presumed to spend in a month. 
+            </summary>
+            <param name="childCount">Number of children in-common</param>
+            <returns>(decimal) Monthly Medical Expense Average</returns>
+        </member>
+        <member name="M:MCSF.ApiControllers.OrdinaryMedExpController.Annual(System.Int32)">
+            <summary>
+            MCSF-S 2.02 Ordinary Medical Expense Averages table. The average amount familes are presumed to spend annualy.
+            </summary>
+            <param name="childCount">Number of children in-common</param>
+            <returns>(decimal) Monthly Medical Expense Average</returns>
+        </member>
         <member name="M:MCSF.ApiControllers.LowIncomeController.Threshold">
             <summary>
             2.09(A) “Low Income Threshold” is the individual income level specified in the current MCSF Supplement.
             </summary>
             <returns>(int) Monthly amount considered to be minimum income.</returns>
         </member>
-        <member name="M:MCSF.ApiControllers.LowIncomeController.Obligation(System.Decimal)">
+        <member name="T:MCSF.ApiModels.AdditionalChildren">
             <summary>
-            3.02(C) Low Income Equation: When a parent’s monthly net income does not exceed the Low Income Threshold, the 
-            parent’s base support obligation is 10 percent of that parent’s income.
+            2.08(B) When a parent has additional minor children (whether living in that parent’s household or for whom the parent 
+            pays child support), net income for calculating support in the present case does not include the portion of that 
+            parent’s income reserved for supporting those additional children calculated according to both of the following steps:
+            (1) Deduct from a parent’s income dollar-for-dollar the portion of that parent’s health insurance premiums used to cover 
+            qualifying additional children. (2) After subtracting qualifying additional children’s health care coverage costs, multiply 
+            that parent’s remaining net income by the Additional Children table’s Adjustment Multiplier to determine net income to 
+            use for the present case.
             </summary>
-            <param name="income"></param>
-            <returns>Returns the monthly support obligation for a person below the Low Income Threshold.</returns>
         </member>
-        <member name="M:MCSF.ApiControllers.LowIncomeController.TransitionObligation(System.Decimal,System.Int32)">
+        <member name="T:MCSF.ApiModels.GeneralCareSupport">
             <summary>
-            3.02(D) Low Income Transition Equation: When a parent’s net income exceeds the Low Income Threshold, that parent’s 
-            base support obligation will generally be determined using the General Care Equation. However, if the following 
-            equation’s result is lower than the amount calculated using the General Care Equation, a parent’s base support 
-            obligation is the amount determined by applying this equation.
-            </summary>        
-            <param name="income"></param>
-            <param name="childCount"></param>
-            <returns>(int) Monthly support obligation for a person slightly above Low Income.</returns>
+            MCSF-S 2.03 General Care Support Tables: 2.03(A) Based on the estimated costs of raising children, the General Care Equation 
+            (2008 MCSF 3.02(B)) uses variable percentages of family income to determine a child support obligation. The General Care 
+            Support Tables contain those figures and its percentages exclude medical or child care expenses. This supplement contains 
+            net family income levels adjusted using the August 2007 Consumer Price Index (CPI-U Detroit) from its 1985 original base.
+            </summary>
+        </member>
+        <member name="T:MCSF.ApiModels.LowIncomeThreshold">
+            <summary>
+            MCSF-S 2.01 Low Income Threshold: 2.01(A) The Low Income Threshold is $851.00 (2007 United States HHS Poverty Guideline). 
+            </summary>
         </member>
         <member name="T:MCSF.ApiModels.OrdinaryMedicalExpense">
             <summary>

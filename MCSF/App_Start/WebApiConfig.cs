@@ -15,15 +15,16 @@ namespace MCSF
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{childCount}",
-                defaults: new { childCount = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{childCount}",
+            //    defaults: new { childCount = RouteParameter.Optional }
+            //);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApiWithAction",
-                routeTemplate: "Api/{controller}/{action}/{childCount}"
+                routeTemplate: "Api/{controller}/{action}/{childCount}",
+                defaults: new { childCount = RouteParameter.Optional }
             );
 
             // Setup to return json and camelcase it!

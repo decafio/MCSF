@@ -35,5 +35,18 @@ namespace MCSF.Tests.ApiControllers
             // Assert
             Assert.AreEqual(result.Content, result2.Content);
         }
+
+        [TestMethod]
+        public async Task LowIncomeTransitionEquation_3Children()
+        {
+            // Arrange
+            BaseSupportController sut = new BaseSupportController();
+
+            // Act
+            var result = await sut.LowIncomeTransitionEquation(1000m, 3) as OkNegotiatedContentResult<int>;
+
+            // Assert
+            Assert.AreEqual(134, result.Content);
+        }
     }
 }

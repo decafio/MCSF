@@ -36,7 +36,8 @@ namespace MCSF.ApiControllers
         /// MCSF 3.02 Base Support Obligation: MCSF 4.01(A) When a third party has custody of a child, 
         /// both parents should pay support.
         /// </summary>
-        /// <param name="NetIncome">Individual Parents Income: MCSF 4.01(A) Determine each parent’s base support obligation according to that parent’s         /// individual income. </param>
+        /// <param name="NetIncome">Individual Parents Income: MCSF 4.01(A) Determine each parent’s base support obligation according to that parent’s 
+        /// individual income. </param>
         /// <param name="ChildCount">Number of Children in common in the marriage in the custody of a Third Party.</param>
         /// <returns></returns>
         [HttpGet]
@@ -83,9 +84,9 @@ namespace MCSF.ApiControllers
         /// <param name="childCount"></param>
         /// <returns>(int) Monthly support obligation for a person slightly above Low Income.</returns>
         [HttpGet]
-        public IHttpActionResult LowIncomeTransitionEquation(decimal income, int childCount)
+        public async Task<IHttpActionResult> LowIncomeTransitionEquation(decimal income, int childCount)
         {
-            return Ok(BaseSupportCalcs.LowIncomeTransitionEquation(income, childCount));
+            return Ok(await BaseSupportCalcs.LowIncomeTransitionEquation(income, childCount));
         }
 
     }

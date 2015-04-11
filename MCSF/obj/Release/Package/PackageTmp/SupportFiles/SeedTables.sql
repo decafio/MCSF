@@ -43,24 +43,24 @@ SET IDENTITY_INSERT AdditionalChildrens OFF
 -- --------------------------------------------------
 --	Ordinary Medical Expense Amount (MCSF Supplement Pg 1)
 -- --------------------------------------------------
-SET IDENTITY_INSERT OrdinaryMedExps ON
+SET IDENTITY_INSERT OrdinaryMedicalExpenses ON
 
-If not exists(SELECT * FROM OrdinaryMedExps WHERE [ChildCount] = 1)
-INSERT INTO OrdinaryMedExps (ChildCount, AnnualAmount, MonthlyAmount) VALUES (1, 357, 29.75)
+If not exists(SELECT * FROM OrdinaryMedicalExpenses WHERE [ChildCount] = 1)
+INSERT INTO OrdinaryMedicalExpenses (ChildCount, AnnualAmount, MonthlyAmount) VALUES (1, 357, 29.75)
 
-If not exists(SELECT * FROM OrdinaryMedExps WHERE [ChildCount] = 2)
-INSERT INTO OrdinaryMedExps (ChildCount, AnnualAmount, MonthlyAmount) VALUES (2, 715, 59.58)
+If not exists(SELECT * FROM OrdinaryMedicalExpenses WHERE [ChildCount] = 2)
+INSERT INTO OrdinaryMedicalExpenses (ChildCount, AnnualAmount, MonthlyAmount) VALUES (2, 715, 59.58)
 
-If not exists(SELECT * FROM OrdinaryMedExps WHERE [ChildCount] = 3)
-INSERT INTO OrdinaryMedExps (ChildCount, AnnualAmount, MonthlyAmount) VALUES (3, 1072, 89.33)
+If not exists(SELECT * FROM OrdinaryMedicalExpenses WHERE [ChildCount] = 3)
+INSERT INTO OrdinaryMedicalExpenses (ChildCount, AnnualAmount, MonthlyAmount) VALUES (3, 1072, 89.33)
 
-If not exists(SELECT * FROM OrdinaryMedExps WHERE [ChildCount] = 4)
-INSERT INTO OrdinaryMedExps (ChildCount, AnnualAmount, MonthlyAmount) VALUES (4, 1430, 119.17)
+If not exists(SELECT * FROM OrdinaryMedicalExpenses WHERE [ChildCount] = 4)
+INSERT INTO OrdinaryMedicalExpenses (ChildCount, AnnualAmount, MonthlyAmount) VALUES (4, 1430, 119.17)
 
-If not exists(SELECT * FROM OrdinaryMedExps WHERE [ChildCount] = 5)
-INSERT INTO OrdinaryMedExps (ChildCount, AnnualAmount, MonthlyAmount) VALUES (5, 1787, 148.92)
+If not exists(SELECT * FROM OrdinaryMedicalExpenses WHERE [ChildCount] = 5)
+INSERT INTO OrdinaryMedicalExpenses (ChildCount, AnnualAmount, MonthlyAmount) VALUES (5, 1787, 148.92)
 
-SET IDENTITY_INSERT OrdinaryMedExps OFF
+SET IDENTITY_INSERT OrdinaryMedicalExpenses OFF
 -- --------------------------------------------------
 --	Low Income Threshold (MCSF Supplement Pg 1)
 -- --------------------------------------------------

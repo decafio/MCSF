@@ -2,6 +2,6 @@
 DROP TABLE GeneralCareSupports;
 DROP TABLE IncomeBrackets;
 DROP TABLE LowIncomeThresholds;
-DROP TABLE OrdinaryMedExpAvgs;
+DROP TABLE OrdinaryMedicalExpenses;
 DROP TABLE TransitionAdjustments;
 DROP TABLE __MigrationHistory;

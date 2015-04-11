@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="CalculationContext-Web.config Connection String" description="CalculationContext Connection String used in web.config by the application to access the database." defaultValue="CalculationContext_ConnectionString" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Jason\\documents\\visual\ studio\ 2013\\Projects\\MCSF\\MCSF\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CalculationContext']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Jason\ Smith\\Documents\\Visual\ Studio\ 2013\\Projects\\MCSF\\MCSF\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CalculationContext']/@connectionString" />
   </parameter>
 </parameters>

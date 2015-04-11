@@ -34,3 +34,41 @@ c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\bin\Antlr3.Runtim
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.csprojResolveAssemblyReference.cache
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.dll
 c:\users\jason\documents\visual studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.pdb
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\MCSF.dll.config
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\MCSF.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\MCSF.pdb
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\Antlr3.Runtime.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\EntityFramework.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\EntityFramework.SqlServer.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\Newtonsoft.Json.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Net.Http.Formatting.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Helpers.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Http.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Http.WebHost.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Mvc.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Optimization.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Razor.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.WebPages.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.WebPages.Razor.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\WebGrease.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\EntityFramework.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\EntityFramework.SqlServer.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\Newtonsoft.Json.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Net.Http.Formatting.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Helpers.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Http.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Http.WebHost.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Mvc.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Optimization.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.Razor.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.WebPages.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\System.Web.WebPages.Razor.xml
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\bin\Antlr3.Runtime.pdb
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.csprojResolveAssemblyReference.cache
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.Migrations.Calc1.resources
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.csproj.GenerateResource.Cache
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.dll
+C:\Users\Jason Smith\Documents\Visual Studio 2013\Projects\MCSF\MCSF\obj\Release\MCSF.pdb

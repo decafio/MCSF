@@ -30,7 +30,9 @@ namespace MCSF.DAL
             else
                 additionalChildren = await calcContext.AdditionalChildren.Where(a => a.ChildCount == additionalChildCount).FirstAsync();
 
-            return additionalChildren.Multiplier;
+            decimal multiplier = additionalChildren.Multiplier;
+
+            return multiplier;
         }
     }
 }
